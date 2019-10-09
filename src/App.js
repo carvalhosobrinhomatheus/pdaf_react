@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react';
+import { async } from 'q';
 
 export default function App() {
 
   const [repositories, setRepositories] = useState([]);
 
-  useEffect(async () => {
+  useEffect( async () => {
     const response = await fetch('https://api.github.com/users/MatheusCarvalhoS/repos');
     const data = await response.json();
-
+    localStorage.setItem("token", "teste");
     setRepositories(data);
   }, []);
 
   useEffect(() => {
-
+    const filtered = repositories.filter(repo => repo.favorite);
+    document.title = `Você tem ${filtered.length} favoritos`;
   }, [repositories]);
 
 
@@ -36,6 +38,9 @@ export default function App() {
             </button>
           </li>)}
       </ul>
+      <button onClick={() => localStorage.clear()}>
+              <span>deletar localStorage</span>
+      </button>
     </div>
   );
 }
