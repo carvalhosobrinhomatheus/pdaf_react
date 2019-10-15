@@ -16,7 +16,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import MailIcon from '@material-ui/icons/Mail';
 import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
-import Styles from './styles';
+import Styles from '../styles';
 import { useTheme } from '@material-ui/core/styles';
 
 export default function Dashboard() {

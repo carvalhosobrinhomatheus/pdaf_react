@@ -10,9 +10,9 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import { onSubmit } from './service';
+import { onSubmit } from '../service';
 
-import Styles from './styles';
+import Styles from '../styles';
 
 const useStyles = Styles();
 

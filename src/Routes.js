@@ -1,6 +1,6 @@
 import React from "react";
-import Main from "./componentes/Main/index";
-import Login from "./componentes/Login/index";
+import Main from "./modulos/Main/componentes/index";
+import Login from "./modulos/Login/componentes/index";
 
 import {BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
