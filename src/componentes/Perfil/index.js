@@ -1,18 +1,9 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-
-const useStyles = makeStyles(theme => ({
-  button: {
-    margin: theme.spacing(1),
-  },
-  input: {
-    display: 'none',
-  },
-}));
+import Styles from './styles';
 
 export default function ContainedButtons() {
-  const classes = useStyles();
+  const classes = Styles();
 
   return (
     <div>

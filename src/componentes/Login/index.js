@@ -9,54 +9,14 @@ import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { onSubmit } from './service';
 
-import Axios from 'axios';
+import Styles from './styles';
 
-const useStyles = makeStyles(theme => ({
-  '@global': {
-    body: {
-      backgroundColor: theme.palette.common.white,
-    },
-  },
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
+const useStyles = Styles();
 
-function onSubmit(event) {
-  event.preventDefault();
-
-  Axios.post("http://localhost:8080/login", {
-    username: event.target.elements.matricula.value,
-    password: event.target.elements.password.value
-  }).then(response => {
-    localStorage.clear();
-    const usuario = { matricula: response.headers.matricula, 
-                      nome: response.headers.nome}; 
-    localStorage.setItem("Authorization", response.headers.authorization);
-    localStorage.setItem("UsuarioLogado", JSON.stringify(usuario));
-    console.log(response.headers);
-  });
-}
-
-
-export default function SignIn() {
+export default function Login() {
   const classes = useStyles();
 
   return (
