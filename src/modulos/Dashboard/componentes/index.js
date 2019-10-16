@@ -15,6 +15,9 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import MailIcon from '@material-ui/icons/Mail';
+import SettingsIcon from '@material-ui/icons/Settings';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import HelpIcon from '@material-ui/icons/Help';
 import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
 import Styles from '../styles';
 import { useTheme } from '@material-ui/core/styles';
@@ -90,6 +93,25 @@ export default function Dashboard() {
             <ListItem button key="text">
               <ListItemIcon><MailIcon /></ListItemIcon>
               <ListItemText primary="text" />
+            </ListItem>
+        </List>
+        
+        <List>
+            <ListItem button key="configuracoes">
+              <ListItemIcon><SettingsIcon /></ListItemIcon>
+              <ListItemText primary="Configurações" />
+            </ListItem>
+        </List>
+        <List>
+            <ListItem button key="minhaConta">
+              <ListItemIcon><AccountCircle /></ListItemIcon>
+              <ListItemText primary="Minha Conta" />
+            </ListItem>
+        </List>
+        <List>
+            <ListItem button key="ajuda">
+              <ListItemIcon><HelpIcon /></ListItemIcon>
+              <ListItemText primary="Ajuda" />
             </ListItem>
         </List>
       </Drawer>

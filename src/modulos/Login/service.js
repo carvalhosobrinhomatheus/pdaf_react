@@ -1,4 +1,5 @@
 import Axios from 'axios';
+import { getPayload } from "../../utils/helpers";
 
 const useLogin = (callback) => {
   console.log(callback);
@@ -17,7 +18,12 @@ const useLogin = (callback) => {
       localStorage.setItem("Authorization", response.headers.authorization);
       localStorage.setItem("UsuarioLogado", JSON.stringify(usuario));
       console.log(response.headers);
-      window.location.href = "/app";
+
+
+
+
+
+      window.location.href = "/";
     });
 
   }

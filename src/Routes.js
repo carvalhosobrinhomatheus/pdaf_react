@@ -1,6 +1,7 @@
 import React from "react";
 import Main from "./modulos/Main/componentes/index";
 import Login from "./modulos/Login/componentes/index";
+import Dashboard from "./modulos/Dashboard/componentes/index";
 
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
@@ -19,9 +20,9 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 const Routes = () => (
     <BrowserRouter>
         <Switch>
-            <Route exact path="/" component={() => Main()} />
+            <Route exact path="/app" component={() => Main()} />
             <Route exact path="/login" component={() => Login()} />
-            <PrivateRoute exact path="/app" component={() => <h1>App</h1>} />
+            <PrivateRoute exact path="/" component={() => Dashboard()} />
         </Switch>
     </BrowserRouter>
 );
