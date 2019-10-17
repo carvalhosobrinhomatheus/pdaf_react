@@ -1,4 +1,5 @@
 import Axios from 'axios';
+import { logoutHelper } from '../../utils/helpers';
 
 export function onSubmit(event) {
   event.preventDefault();
@@ -16,4 +17,9 @@ export function onSubmit(event) {
     localStorage.setItem("UsuarioLogado", JSON.stringify(usuario));
     console.log(response.headers);
   });
+}
+
+export function onClickLogout(){
+  logoutHelper();
+  window.location.href="/";
 }

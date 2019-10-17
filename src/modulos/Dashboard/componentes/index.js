@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState , useEffect } from 'react';
 import clsx from 'clsx';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -8,25 +8,31 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
+import Logout from './Sair';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import MailIcon from '@material-ui/icons/Mail';
 import SettingsIcon from '@material-ui/icons/Settings';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import HelpIcon from '@material-ui/icons/Help';
 import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
 import Styles from '../styles';
 import { useTheme } from '@material-ui/core/styles';
+import { payloadHelper, verificarPermissoesHelper } from "../../../utils/helpers";
+import { VIS_USUARIO } from "../../../utils/permissoes";
+import PaperSheet from "./Paper";
+
+const permissaoVisualizarUsuario = verificarPermissoesHelper(VIS_USUARIO);
 
 export default function Dashboard() {
+  
   document.title = "PDAF - SEEDF"
   const classes = Styles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [usuario, setUsuario] = React.useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -36,6 +42,18 @@ export default function Dashboard() {
     setOpen(false);
   };
 
+  const usuarioShow = () => {
+    setUsuario(!usuario);
+  }
+
+  useEffect(() => {
+    if(usuario === true){
+      
+    }
+  });
+
+  Seguir exemplo para usuário
+  // https://www.taniarascia.com/crud-app-in-react-with-hooks/
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -60,6 +78,8 @@ export default function Dashboard() {
           <Typography variant="h6" noWrap>
             PDAF
           </Typography>
+
+          <Logout />
         </Toolbar>
       </AppBar>
       <Drawer
@@ -82,30 +102,18 @@ export default function Dashboard() {
           </IconButton>
         </div>
         <Divider />
+        {permissaoVisualizarUsuario && 
         <List>
-            <ListItem button key="usuarios">
+            <ListItem button key="usuarios" onClick={usuarioShow}>
               <ListItemIcon><PeopleOutlineIcon /></ListItemIcon>
               <ListItemText primary="Usuários" />
             </ListItem>
-        </List>
+        </List>}
         <Divider />
-        <List>
-            <ListItem button key="text">
-              <ListItemIcon><MailIcon /></ListItemIcon>
-              <ListItemText primary="text" />
-            </ListItem>
-        </List>
-        
         <List>
             <ListItem button key="configuracoes">
               <ListItemIcon><SettingsIcon /></ListItemIcon>
               <ListItemText primary="Configurações" />
-            </ListItem>
-        </List>
-        <List>
-            <ListItem button key="minhaConta">
-              <ListItemIcon><AccountCircle /></ListItemIcon>
-              <ListItemText primary="Minha Conta" />
             </ListItem>
         </List>
         <List>
@@ -115,10 +123,7 @@ export default function Dashboard() {
             </ListItem>
         </List>
       </Drawer>
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
-        test
-      </main>
+      {usuario && <PaperSheet/>} 
     </div>
   );
 }

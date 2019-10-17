@@ -26,7 +26,7 @@ export default function Login() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Login PDAF
+          Acesso ao sistema
         </Typography>
         <form onSubmit={onSubmit}>
           <TextField
@@ -46,7 +46,7 @@ export default function Login() {
             required
             fullWidth
             name="password"
-            label="Password"
+            label="Senha"
             type="password"
             id="password"
             autoComplete="current-password"

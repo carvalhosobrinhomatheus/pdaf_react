@@ -67,6 +67,11 @@ const Styles = makeStyles(theme => ({
       display: 'flex',
     },
   },
+  rootPerfil: {
+    flexGrow: 1,
+    padding: theme.spacing(1),
+    marginLeft: `calc(100% - ${drawerWidth}px)`,
+  },
 }));
 
 export default Styles;

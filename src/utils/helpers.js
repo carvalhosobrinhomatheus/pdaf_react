@@ -1,5 +1,5 @@
 
-function getPayload() {
+export function payloadHelper() {
     let jwtDecode = require('jwt-decode')
     let token = localStorage.getItem("Authorization");
     if (token === null) {
@@ -7,15 +7,20 @@ function getPayload() {
     }
 
     let decodedPayload = jwtDecode(token);
+
     return decodedPayload;
 }
 
-function logout() {
+export function extrairAuthorizationHelper() {
+    return localStorage.getItem("Authorization");
+}
+
+export function logoutHelper() {
     localStorage.removeItem("Authorization");
     localStorage.removeItem("UsuarioLogado");
 }
 
-function isLogado() {
+export function usuarioLogadoHelper() {
     let token = localStorage.getItem("Authorization");
     if (token === null) {
         return false
@@ -31,7 +36,7 @@ function isLogado() {
     return true;
 }
 
-function formatarData(date, separator) {
+export function formatarDataHelper(date, separator) {
 
     var d = new Date(date),
         month = '' + (d.getMonth() + 1),
@@ -44,40 +49,30 @@ function formatarData(date, separator) {
     return [day, month, year].join(separator);
 }
 
-function formatarDataHora(dataHora, separator) {
+export function formatarDataHoraHelper(dataHora, separator) {
     var data = this.formatarData(dataHora, separator);
     var d = new Date(dataHora)
     return data + ' às ' + d.toLocaleTimeString('pt-PT');
 }
 
-function dateToString(data) {
+export function dateToStringHelper(data) {
     var retorno = this.formatarData(data);
     return retorno.substr(6, 4) + "-" + retorno.substr(3, 2) + "-" + retorno.substr(0, 2) + " 00:00";
 }
 
-// Atualizar para lista de perfis
-function getPerfil() {
-    let payload = this.getPayload()
-    return payload === false ? false : payload.refIdPerfil
-}
-
-function splice(string, idx, rem, char) {
+export function spliceHelper(string, idx, rem, char) {
     return string.slice(0, idx) + char + string.slice(idx + Math.abs(rem));
 };
 
-function getUsuario() {
+export function getUsuarioHelper() {
     let user = localStorage.getItem("UsuarioLogado")
     return user ? JSON.parse(user) : ""
 }
 
-export default {
-    getPayload,
-    logout,
-    isLogado,
-    formatarData,
-    formatarDataHora,
-    dateToString,
-    getPerfil,
-    splice,
-    getUsuario
-};
+export function verificarPermissoesHelper(permissao) {
+    const permissoesPresentesNoToken = payloadHelper().permissao;
+    if (permissoesPresentesNoToken.includes(permissao)) {
+        return true;
+    } 
+    return false;
+}

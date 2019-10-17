@@ -5,15 +5,13 @@ import Dashboard from "./modulos/Dashboard/componentes/index";
 
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
-import { isAuthenticated } from './Auth';
+import { autenticado } from './Auth';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={props => (
-        isAuthenticated() ? (
-            <Component {...props} />
-        ) : (
-                <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
-            )
+        autenticado() ?
+            (<Component {...props} />) :
+            (<Redirect to={{ pathname: "/login", state: { from: props.location } }} />)
     )} />
 );
 
