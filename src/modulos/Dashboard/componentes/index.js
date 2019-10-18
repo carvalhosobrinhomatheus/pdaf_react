@@ -1,4 +1,4 @@
-import React, { useState , useEffect } from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -20,19 +20,19 @@ import HelpIcon from '@material-ui/icons/Help';
 import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
 import Styles from '../styles';
 import { useTheme } from '@material-ui/core/styles';
-import { payloadHelper, verificarPermissoesHelper } from "../../../utils/helpers";
+import { verificarPermissoesHelper } from "../../../utils/helpers";
 import { VIS_USUARIO } from "../../../utils/permissoes";
-import PaperSheet from "./Paper";
+import Usuario from "../../Usuario/componentes/index";
 
-const permissaoVisualizarUsuario = verificarPermissoesHelper(VIS_USUARIO);
+const permissaoVisualizarUsuarioComponente = verificarPermissoesHelper(VIS_USUARIO);
 
 export default function Dashboard() {
   
   document.title = "PDAF - SEEDF"
   const classes = Styles();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
-  const [usuario, setUsuario] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [usuarioComponente, setUsuarioComponente] = useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -42,17 +42,10 @@ export default function Dashboard() {
     setOpen(false);
   };
 
-  const usuarioShow = () => {
-    setUsuario(!usuario);
+  const usuarioComponenteShow = () => {
+    setUsuarioComponente(!usuarioComponente);
   }
 
-  useEffect(() => {
-    if(usuario === true){
-      
-    }
-  });
-
-  Seguir exemplo para usuário
   // https://www.taniarascia.com/crud-app-in-react-with-hooks/
   return (
     <div className={classes.root}>
@@ -102,9 +95,9 @@ export default function Dashboard() {
           </IconButton>
         </div>
         <Divider />
-        {permissaoVisualizarUsuario && 
+        {permissaoVisualizarUsuarioComponente && 
         <List>
-            <ListItem button key="usuarios" onClick={usuarioShow}>
+            <ListItem button key="usuarios" onClick={usuarioComponenteShow}>
               <ListItemIcon><PeopleOutlineIcon /></ListItemIcon>
               <ListItemText primary="Usuários" />
             </ListItem>
@@ -123,7 +116,7 @@ export default function Dashboard() {
             </ListItem>
         </List>
       </Drawer>
-      {usuario && <PaperSheet/>} 
+      {usuarioComponente && <Usuario />} 
     </div>
   );
 }
