@@ -4,9 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
-//import Styles from '../styles';
 import UsuarioTable from './UsuarioTable';
-import { functionTypeAnnotation } from '@babel/types';
 
 const Styles = makeStyles(theme => ({
     button: {
@@ -22,25 +20,18 @@ const Styles = makeStyles(theme => ({
     },
 }));
 
-export default function Usuario() {
+export default function Usuario(props) {
     const classes = Styles();
-    const [usuarios, setUsuarios] = useState([
-        { id: 0, nome: "matheus", matricula: "2444267" },
-    ]);
 
-    const usersData = [
-        { id: 1, nome: 'Tania', matricula: 'floppydiskette' },
-        { id: 2, nome: 'Craig', matricula: 'siliconeidolon' },
-        { id: 3, nome: 'Ben', matricula: 'benisphere' },
-      ]
+    const usersData = props.usuarios;
     
-      const [users, setUsers] = useState(usersData)
+    const [users, setUsers] = useState(usersData)
     
-      const addUser = () =>{
+    const addUser = () =>{
         const user = { id: 1, nome: 'Tania', matricula: 'floppydiskette' };
         user.id = users.length + 1
         setUsers([...users, user])
-      }
+    }
 
     return (
         <Paper className={classes.rootPapper}>
@@ -51,8 +42,7 @@ export default function Usuario() {
                 </Fab>
             </Box>
             <div className="flex-large">
-                <h2>View users</h2>
-                <UsuarioTable usuarios={users} />
+                <UsuarioTable usuarios={users} addUser={addUser}/>
             </div>
         </Paper>
     );

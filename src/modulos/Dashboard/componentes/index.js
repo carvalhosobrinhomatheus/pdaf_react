@@ -25,6 +25,7 @@ import { VIS_USUARIO } from "../../../utils/permissoes";
 import Usuario from "../../Usuario/componentes/index";
 
 const permissaoVisualizarUsuarioComponente = verificarPermissoesHelper(VIS_USUARIO);
+const DashboardContext = React.createContext(null)
 
 export default function Dashboard() {
   
@@ -33,6 +34,10 @@ export default function Dashboard() {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const [usuarioComponente, setUsuarioComponente] = useState(false);
+  
+  const [usuarios, setUsuarios] = useState([
+    { id: 0, nome: "matheus", matricula: "2444267" },
+  ]);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -116,7 +121,7 @@ export default function Dashboard() {
             </ListItem>
         </List>
       </Drawer>
-      {usuarioComponente && <Usuario />} 
+      {usuarioComponente && <Usuario usuarios={usuarios}/>} 
     </div>
   );
 }

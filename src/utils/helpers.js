@@ -2,12 +2,10 @@
 export function payloadHelper() {
     let jwtDecode = require('jwt-decode')
     let token = localStorage.getItem("Authorization");
-    if (token === null) {
+    if (token == null) {
         return false;
     }
-
     let decodedPayload = jwtDecode(token);
-
     return decodedPayload;
 }
 
@@ -71,7 +69,7 @@ export function getUsuarioHelper() {
 
 export function verificarPermissoesHelper(permissao) {
     const permissoesPresentesNoToken = payloadHelper().permissao;
-    if (permissoesPresentesNoToken.includes(permissao)) {
+    if (permissoesPresentesNoToken !== undefined && permissoesPresentesNoToken.includes(permissao)) {
         return true;
     } 
     return false;

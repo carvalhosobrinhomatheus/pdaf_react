@@ -10,9 +10,6 @@ export const autenticado = () => {
 
 export const temPermissaoComponente = () => {
     if(usuarioLogadoHelper() != null){
-        
-        
-
         return true;
     }
     return false;
