@@ -72,6 +72,11 @@ const Styles = makeStyles(theme => ({
     padding: theme.spacing(1),
     marginLeft: `calc(100% - ${drawerWidth}px)`,
   },
+  rootPapper: {
+    padding: theme.spacing(3, 3),
+    margin: theme.spacing(12, 4),
+    width: '100%',
+},
 }));
 
 export default Styles;

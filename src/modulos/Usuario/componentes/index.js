@@ -32,6 +32,10 @@ export default function Usuario(props) {
         user.id = users.length + 1
         setUsers([...users, user])
     }
+    function handleChange(event) {
+        // Here, we invoke the callback with the new value
+        props.onChange(event.target.value);
+      }
 
     return (
         <Paper className={classes.rootPapper}>
@@ -42,7 +46,7 @@ export default function Usuario(props) {
                 </Fab>
             </Box>
             <div className="flex-large">
-                <UsuarioTable usuarios={users} addUser={addUser}/>
+                <UsuarioTable usuarios={users}/>
             </div>
         </Paper>
     );

@@ -1,44 +1,54 @@
-import React, { useState } from 'react';
-import clsx from 'clsx';
-import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
+import Drawer from '@material-ui/core/Drawer';
 import IconButton from '@material-ui/core/IconButton';
-import Logout from './Sair';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import SettingsIcon from '@material-ui/icons/Settings';
-import HelpIcon from '@material-ui/icons/Help';
-import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
-import Styles from '../styles';
 import { useTheme } from '@material-ui/core/styles';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import HelpIcon from '@material-ui/icons/Help';
+import MenuIcon from '@material-ui/icons/Menu';
+import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
+import SettingsIcon from '@material-ui/icons/Settings';
+import clsx from 'clsx';
+import React, { useState } from 'react';
 import { verificarPermissoesHelper } from "../../../utils/helpers";
 import { VIS_USUARIO } from "../../../utils/permissoes";
 import Usuario from "../../Usuario/componentes/index";
+import Styles from '../styles';
+import Logout from './Sair';
+import Paper from '@material-ui/core/Paper';
+import Box from '@material-ui/core/Box';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import UsuarioTable from '../../Usuario/componentes/UsuarioTable';
 
 const permissaoVisualizarUsuarioComponente = verificarPermissoesHelper(VIS_USUARIO);
-const DashboardContext = React.createContext(null)
 
 export default function Dashboard() {
   
   document.title = "PDAF - SEEDF"
   const classes = Styles();
   const theme = useTheme();
+
   const [open, setOpen] = useState(false);
   const [usuarioComponente, setUsuarioComponente] = useState(false);
-  
   const [usuarios, setUsuarios] = useState([
-    { id: 0, nome: "matheus", matricula: "2444267" },
-  ]);
-
+    {id: 0, nome: "matheus", matricula: "teste"},
+    {id: 1, nome: "matheus", matricula: "teste"}
+  ])
+    
+  const addUser = () =>{
+      const user = { id: 1, nome: 'Tania', matricula: 'floppydiskette' };
+      user.id = usuarios.length + 1
+      setUsuarios([...usuarios, user])
+  }
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -49,6 +59,10 @@ export default function Dashboard() {
 
   const usuarioComponenteShow = () => {
     setUsuarioComponente(!usuarioComponente);
+  }
+
+  function handleChange(novoValor){
+    console.log("Chamei função pai")
   }
 
   // https://www.taniarascia.com/crud-app-in-react-with-hooks/
@@ -121,7 +135,18 @@ export default function Dashboard() {
             </ListItem>
         </List>
       </Drawer>
-      {usuarioComponente && <Usuario usuarios={usuarios}/>} 
+      {usuarioComponente && 
+        <Paper className={classes.rootPapper}>
+            <h1>Usuários</h1>
+            <Box display="flex" flexDirection="row-reverse">
+                <Fab size="small" color="primary" aria-label="add" onClick={addUser}>
+                    <AddIcon />
+                </Fab>
+            </Box>
+            <div className="flex-large">
+                <UsuarioTable usuarios={usuarios}/>
+            </div>
+        </Paper>} 
     </div>
   );
 }
