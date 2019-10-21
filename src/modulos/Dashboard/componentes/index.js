@@ -32,7 +32,7 @@ import UsuarioTable from '../../Usuario/componentes/UsuarioTable';
 const permissaoVisualizarUsuarioComponente = verificarPermissoesHelper(VIS_USUARIO);
 
 export default function Dashboard() {
-  
+
   document.title = "PDAF - SEEDF"
   const classes = Styles();
   const theme = useTheme();
@@ -40,15 +40,49 @@ export default function Dashboard() {
   const [open, setOpen] = useState(false);
   const [usuarioComponente, setUsuarioComponente] = useState(false);
   const [usuarios, setUsuarios] = useState([
-    {id: 0, nome: "matheus", matricula: "teste"},
-    {id: 1, nome: "matheus", matricula: "teste"}
+    {
+      "idUsuario": 1,
+      "nome": "Matheus de Carvalho Sobrinho",
+      "matricula": "24442672",
+      "ativo": true,
+      "perfil": [
+        {
+          "idPerfil": 0,
+          "ativo": true,
+          "nome": "ADMIN"
+        },
+        {
+          "idPerfil": 1,
+          "ativo": true,
+          "nome": "Gestor"
+        }
+      ]
+    },
   ])
-    
-  const addUser = () =>{
-      const user = { id: 1, nome: 'Tania', matricula: 'floppydiskette' };
-      user.id = usuarios.length + 1
-      setUsuarios([...usuarios, user])
+
+  const inserirUsuario = () => {
+    const user = {
+      "idUsuario": 2,
+      "nome": "Teste",
+      "matricula": "teste",
+      "ativo": true,
+      "perfil": [
+        {
+          "idPerfil": 0,
+          "ativo": true,
+          "nome": "DESENV"
+        },
+        {
+          "idPerfil": 1,
+          "ativo": true,
+          "nome": "Gestor"
+        }
+      ]
+    };
+    user.id = usuarios.length + 1
+    setUsuarios([...usuarios, user])
   }
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -59,10 +93,6 @@ export default function Dashboard() {
 
   const usuarioComponenteShow = () => {
     setUsuarioComponente(!usuarioComponente);
-  }
-
-  function handleChange(novoValor){
-    console.log("Chamei função pai")
   }
 
   // https://www.taniarascia.com/crud-app-in-react-with-hooks/
@@ -114,39 +144,39 @@ export default function Dashboard() {
           </IconButton>
         </div>
         <Divider />
-        {permissaoVisualizarUsuarioComponente && 
-        <List>
+        {permissaoVisualizarUsuarioComponente &&
+          <List>
             <ListItem button key="usuarios" onClick={usuarioComponenteShow}>
               <ListItemIcon><PeopleOutlineIcon /></ListItemIcon>
               <ListItemText primary="Usuários" />
             </ListItem>
-        </List>}
+          </List>}
         <Divider />
         <List>
-            <ListItem button key="configuracoes">
-              <ListItemIcon><SettingsIcon /></ListItemIcon>
-              <ListItemText primary="Configurações" />
-            </ListItem>
+          <ListItem button key="configuracoes">
+            <ListItemIcon><SettingsIcon /></ListItemIcon>
+            <ListItemText primary="Configurações" />
+          </ListItem>
         </List>
         <List>
-            <ListItem button key="ajuda">
-              <ListItemIcon><HelpIcon /></ListItemIcon>
-              <ListItemText primary="Ajuda" />
-            </ListItem>
+          <ListItem button key="ajuda">
+            <ListItemIcon><HelpIcon /></ListItemIcon>
+            <ListItemText primary="Ajuda" />
+          </ListItem>
         </List>
       </Drawer>
-      {usuarioComponente && 
+      {usuarioComponente &&
         <Paper className={classes.rootPapper}>
-            <h1>Usuários</h1>
-            <Box display="flex" flexDirection="row-reverse">
-                <Fab size="small" color="primary" aria-label="add" onClick={addUser}>
-                    <AddIcon />
-                </Fab>
-            </Box>
-            <div className="flex-large">
-                <UsuarioTable usuarios={usuarios}/>
-            </div>
-        </Paper>} 
+          <h1>Usuários</h1>
+          <Box display="flex" flexDirection="row-reverse">
+            <Fab size="small" color="primary" aria-label="add" onClick={inserirUsuario}>
+              <AddIcon />
+            </Fab>
+          </Box>
+          <div className="flex-large">
+            <UsuarioTable usuarios={usuarios} inserirUsuario={inserirUsuario} />
+          </div>
+        </Paper>}
     </div>
   );
 }
