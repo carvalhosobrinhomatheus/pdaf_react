@@ -17,70 +17,48 @@ import MenuIcon from '@material-ui/icons/Menu';
 import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
 import SettingsIcon from '@material-ui/icons/Settings';
 import clsx from 'clsx';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { verificarPermissoesHelper } from "../../../utils/helpers";
 import { VIS_USUARIO } from "../../../utils/permissoes";
-import Usuario from "../../Usuario/componentes/index";
 import Styles from '../styles';
 import Logout from './Sair';
-import Paper from '@material-ui/core/Paper';
-import Box from '@material-ui/core/Box';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
-import UsuarioTable from '../../Usuario/componentes/UsuarioTable';
+import MaterialTable from '../../Dashboard/MaterialTable';
+import buscarTodos from '../../Usuario/service';
+import Axios from 'axios';
+
 
 const permissaoVisualizarUsuarioComponente = verificarPermissoesHelper(VIS_USUARIO);
 
 export default function Dashboard() {
 
-  document.title = "PDAF - SEEDF"
   const classes = Styles();
   const theme = useTheme();
 
   const [open, setOpen] = useState(false);
   const [usuarioComponente, setUsuarioComponente] = useState(false);
-  const [usuarios, setUsuarios] = useState([
-    {
-      "idUsuario": 1,
-      "nome": "Matheus de Carvalho Sobrinho",
-      "matricula": "24442672",
-      "ativo": true,
-      "perfil": [
-        {
-          "idPerfil": 0,
-          "ativo": true,
-          "nome": "ADMIN"
-        },
-        {
-          "idPerfil": 1,
-          "ativo": true,
-          "nome": "Gestor"
-        }
-      ]
-    },
-  ])
+  const [usuarios, setUsuarios] = useState([]);
 
-  const inserirUsuario = () => {
-    const user = {
-      "idUsuario": 2,
-      "nome": "Teste",
-      "matricula": "teste",
-      "ativo": true,
-      "perfil": [
-        {
-          "idPerfil": 0,
-          "ativo": true,
-          "nome": "DESENV"
-        },
-        {
-          "idPerfil": 1,
-          "ativo": true,
-          "nome": "Gestor"
-        }
-      ]
-    };
-    user.id = usuarios.length + 1
-    setUsuarios([...usuarios, user])
+  useEffect(async () => {
+    const result = await buscarTodos();
+    console.log(result);
+
+    // if(usuarios.length === 0 && !usuarioComponente){
+      //const usu = buscarTodos();
+  
+    setUsuarios(result)
+    // }
+  }, []);
+
+  const inserirUsuario = (props) => {
+    setUsuarios(props);
+  }
+
+  const alterarUsuario = (props) => {
+    setUsuarios(props);
+  }
+
+  const deletarUsuario = (props) => {
+    setUsuarios(props);
   }
 
   const handleDrawerOpen = () => {
@@ -166,17 +144,13 @@ export default function Dashboard() {
         </List>
       </Drawer>
       {usuarioComponente &&
-        <Paper className={classes.rootPapper}>
-          <h1>Usuários</h1>
-          <Box display="flex" flexDirection="row-reverse">
-            <Fab size="small" color="primary" aria-label="add" onClick={inserirUsuario}>
-              <AddIcon />
-            </Fab>
-          </Box>
-          <div className="flex-large">
-            <UsuarioTable usuarios={usuarios} inserirUsuario={inserirUsuario} />
-          </div>
-        </Paper>}
+        <div className={classes.rootPapper}>
+          <MaterialTable
+            usuarios={usuarios}
+            inserirUsuario={inserirUsuario}
+            alterarUsuario={alterarUsuario}
+            deletarUsuario={deletarUsuario} />
+        </div>}
     </div>
   );
 }

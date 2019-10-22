@@ -1,19 +1,11 @@
 import Axios from 'axios';
 
-export function onSubmit(event) {
-  event.preventDefault();
-
-  Axios.post("http://localhost:8080/login", {
-    username: event.target.elements.matricula.value,
-    password: event.target.elements.password.value
+const buscarTodos = () => {
+  Axios.get("http://localhost:8080/usuario", {
+    headers: { 'Authorization': localStorage.getItem("Authorization") }
   }).then(response => {
-    localStorage.clear();
-    const usuario = {
-      matricula: response.headers.matricula,
-      nome: response.headers.nome
-    };
-    localStorage.setItem("Authorization", response.headers.authorization);
-    localStorage.setItem("UsuarioLogado", JSON.stringify(usuario));
-    console.log(response.headers);
+    return response.data;
   });
 }
+
+export default buscarTodos;
