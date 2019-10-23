@@ -19,15 +19,17 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import clsx from 'clsx';
 import React, { useState, useEffect } from 'react';
 import { verificarPermissoesHelper } from "../../../utils/helpers";
-import { VIS_USUARIO } from "../../../utils/permissoes";
+import { VIS_USUARIO, VIS_PERFIL } from "../../../utils/permissoes";
 import Styles from '../styles';
 import Logout from './Sair';
-import MaterialTable from '../../Dashboard/MaterialTable';
-import buscarTodos from '../../Usuario/service';
+import UsuarioTable from '../../Usuario/componentes/UsuarioTable';
+import LockIcon from '@material-ui/icons/Lock';
+import { buscarTodos, teste } from '../../Usuario/service';
 import Axios from 'axios';
 
 
 const permissaoVisualizarUsuarioComponente = verificarPermissoesHelper(VIS_USUARIO);
+const permissaoVisualizarPerfilComponente = verificarPermissoesHelper(VIS_PERFIL);
 
 export default function Dashboard() {
 
@@ -36,17 +38,19 @@ export default function Dashboard() {
 
   const [open, setOpen] = useState(false);
   const [usuarioComponente, setUsuarioComponente] = useState(false);
+  const [perfilComponente, setPerfilComponente] = useState(false);
   const [usuarios, setUsuarios] = useState([]);
 
   useEffect(async () => {
-    const result = await buscarTodos();
-    console.log(result);
+    if (usuarios.length === 0 && !usuarioComponente) {
+      const result = await Axios.get("http://localhost:8080/usuario", {
+        headers: { 'Authorization': localStorage.getItem("Authorization") }
+      }).then(response => {
+        return response.data;
+      });
 
-    // if(usuarios.length === 0 && !usuarioComponente){
-      //const usu = buscarTodos();
-  
-    setUsuarios(result)
-    // }
+      setUsuarios(result)
+    }
   }, []);
 
   const inserirUsuario = (props) => {
@@ -71,6 +75,12 @@ export default function Dashboard() {
 
   const usuarioComponenteShow = () => {
     setUsuarioComponente(!usuarioComponente);
+    setPerfilComponente(false);
+  }
+  
+  const perfilComponenteShow = () => {
+    setPerfilComponente(!perfilComponente);
+    setUsuarioComponente(false);
   }
 
   // https://www.taniarascia.com/crud-app-in-react-with-hooks/
@@ -124,9 +134,16 @@ export default function Dashboard() {
         <Divider />
         {permissaoVisualizarUsuarioComponente &&
           <List>
-            <ListItem button key="usuarios" onClick={usuarioComponenteShow}>
+            <ListItem button key="usuario" onClick={usuarioComponenteShow}>
               <ListItemIcon><PeopleOutlineIcon /></ListItemIcon>
               <ListItemText primary="Usuários" />
+            </ListItem>
+          </List>}
+        {permissaoVisualizarPerfilComponente &&
+          <List>
+            <ListItem button key="perfil" onClick={perfilComponenteShow}>
+              <ListItemIcon><LockIcon /></ListItemIcon>
+              <ListItemText primary="Perfis" />
             </ListItem>
           </List>}
         <Divider />
@@ -145,11 +162,15 @@ export default function Dashboard() {
       </Drawer>
       {usuarioComponente &&
         <div className={classes.rootPapper}>
-          <MaterialTable
+          <UsuarioTable
             usuarios={usuarios}
             inserirUsuario={inserirUsuario}
             alterarUsuario={alterarUsuario}
             deletarUsuario={deletarUsuario} />
+        </div>}
+        {perfilComponente &&
+        <div className={classes.rootPapper}>
+          perfil
         </div>}
     </div>
   );

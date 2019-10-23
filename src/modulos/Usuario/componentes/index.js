@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import Box from '@material-ui/core/Box';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
-import UsuarioTable from './UsuarioTable';
 
 const Styles = makeStyles(theme => ({
     button: {
@@ -39,15 +35,7 @@ export default function Usuario(props) {
 
     return (
         <Paper className={classes.rootPapper}>
-            <h1>Usuários</h1>
-            <Box display="flex" flexDirection="row-reverse">
-                <Fab size="small" color="primary" aria-label="add" onClick={() => addUser()}>
-                    <AddIcon />
-                </Fab>
-            </Box>
-            <div className="flex-large">
-                <UsuarioTable usuarios={users}/>
-            </div>
+            
         </Paper>
     );
 }

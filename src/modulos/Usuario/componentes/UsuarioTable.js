@@ -1,48 +1,64 @@
-import React from 'react'
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
+import React from 'react';
+import MaterialTable from 'material-table';
 
-const UsuarioTable = props => (
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Matrícula</th>
-                <th>Perfil</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            {props.usuarios.length > 0 ? (
-                props.usuarios.map(usuario => (
+export default function UsuarioTable(props) {
 
-                    <tr key={usuario.idUsuario}>
-                        <td>{usuario.idUsuario}</td>
-                        <td>{usuario.nome}</td>
-                        <td>{usuario.matricula}</td>
-                        <td><Select displayEmpty >{usuario.perfil.length > 0 ? (
-                            usuario.perfil.map(perfil => (
-                                <MenuItem>{perfil.nome}</MenuItem>
-                            ))
-                        ) : (
-                                <MenuItem><em>Não cadastrado</em></MenuItem>
-                            )
-                        }</Select>
-                        </td>
-                        <td>
-                            <button className="button muted-button">Editar</button>
-                            <button className="button muted-button">Deletar</button>
-                        </td>
-                    </tr>
-                ))
-            ) : (
-                    <tr>
-                        <td colSpan={3}>Sem usuários cadastrados!</td>
-                    </tr>)}
-        </tbody>
-        {console.log(props.usuarios)}
-    </table>
-)
+    const colunas = [
+        { title: 'Nome', field: 'nome' },
+        { title: 'Matrícula', field: 'matricula', type: 'numeric' },
+        { title: 'Ativo', field: 'ativo', type: "boolean" },
+        { title: 'Perfil', field: 'perfil', editable: null },
+    ];
 
-export default UsuarioTable;
+    const options = {
+        actionsColumnIndex: -1,
+    };
+
+    const actions = [{
+        icon: "lock",
+        tooltip: "GERENCIAR PERFIL",
+        onClick: (event, rowData) => {
+            console.log("teste");
+            console.log(rowData);
+        }
+    }];
+
+    return (
+        <MaterialTable
+            title="Usuários"
+            columns={colunas}
+            data={props.usuarios}
+            options={options}
+            actions={actions}
+            editable={{
+                onRowAdd: newData =>
+                    new Promise(resolve => {
+                        setTimeout(() => {
+                            resolve();
+                            const data = [...props.usuarios, newData];
+                            props.inserirUsuario(data);
+                        }, 600);
+                    }),
+                onRowUpdate: (newData, oldData) =>
+                    new Promise(resolve => {
+                        setTimeout(() => {
+                            resolve();
+                            const data = [...props.usuarios];
+                            data[data.indexOf(oldData)] = newData;
+                            props.alterarUsuario(data);
+                            console.log(data);
+                        }, 600);
+                    }),
+                onRowDelete: oldData =>
+                    new Promise(resolve => {
+                        setTimeout(() => {
+                            resolve();
+                            const data = [...props.usuarios];
+                            data.splice(data.indexOf(oldData), 1);
+                            props.deletarUsuario(data);
+                        }, 600);
+                    }),
+            }}
+        />
+    );
+}
