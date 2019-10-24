@@ -7,12 +7,7 @@ export default function ContainedButtons() {
 
   return (
     <div>
-      <Button variant="contained" className={classes.button}>
-        Default
-      </Button>
-      <Button variant="contained" color="primary" className={classes.button}>
-        Primary
-      </Button>
+      perfil
     </div>
   );
 }

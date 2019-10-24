@@ -26,6 +26,7 @@ import UsuarioTable from '../../Usuario/componentes/UsuarioTable';
 import LockIcon from '@material-ui/icons/Lock';
 import { buscarTodos, teste } from '../../Usuario/service';
 import Axios from 'axios';
+import PerfisAccordion from "../../Perfil/componentes/PerfisAccordion";
 
 
 const permissaoVisualizarUsuarioComponente = verificarPermissoesHelper(VIS_USUARIO);
@@ -40,6 +41,81 @@ export default function Dashboard() {
   const [usuarioComponente, setUsuarioComponente] = useState(false);
   const [perfilComponente, setPerfilComponente] = useState(false);
   const [usuarios, setUsuarios] = useState([]);
+
+  const [perfis, setPerfis] = useState([
+    {
+        "idPerfil": 0,
+        "ativo": true,
+        "nome": "ADMIN",
+        "entidade": [
+            {
+                "nome": "USUARIO",
+                "permissao": [
+                    {
+                        "idPermissao": 3,
+                        "temPermissao": true,
+                        "nome": "ALTERAR_USUARIO"
+                    },
+                    {
+                        "idPermissao": 2,
+                        "temPermissao": true,
+                        "nome": "INSERIR_USUARIO"
+                    },
+                    {
+                        "idPermissao": 4,
+                        "temPermissao": true,
+                        "nome": "DELETAR_USUARIO"
+                    },
+                    {
+                        "idPermissao": 0,
+                        "temPermissao": true,
+                        "nome": "VISUALIZAR_USUARIO"
+                    }
+                ]
+            },
+            {
+                "nome": "PERFIL",
+                "permissao": [
+                    {
+                        "idPermissao": 5,
+                        "temPermissao": true,
+                        "nome": "VISUALIZAR_PERFIL"
+                    },
+                    {
+                        "idPermissao": 6,
+                        "temPermissao": true,
+                        "nome": "INSERIR_PERFIL"
+                    },
+                    {
+                        "idPermissao": 7,
+                        "temPermissao": true,
+                        "nome": "ALTERAR_PERFIL"
+                    },
+                    {
+                        "idPermissao": 8,
+                        "temPermissao": true,
+                        "nome": "DELETAR_PERFIL"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "idPerfil": 1,
+        "ativo": false,
+        "nome": "GESTOR",
+        "entidade": [
+            {
+                "nome": "USUARIO",
+                "permissao": []
+            },
+            {
+                "nome": "PERFIL",
+                "permissao": []
+            }
+        ]
+    }
+]);
 
   useEffect(async () => {
     if (usuarios.length === 0 && !usuarioComponente) {
@@ -77,7 +153,7 @@ export default function Dashboard() {
     setUsuarioComponente(!usuarioComponente);
     setPerfilComponente(false);
   }
-  
+
   const perfilComponenteShow = () => {
     setPerfilComponente(!perfilComponente);
     setUsuarioComponente(false);
@@ -168,9 +244,9 @@ export default function Dashboard() {
             alterarUsuario={alterarUsuario}
             deletarUsuario={deletarUsuario} />
         </div>}
-        {perfilComponente &&
+      {perfilComponente &&
         <div className={classes.rootPapper}>
-          perfil
+          <PerfisAccordion perfis={perfis}/>
         </div>}
     </div>
   );

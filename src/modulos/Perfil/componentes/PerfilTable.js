@@ -1,14 +1,12 @@
 import React from 'react';
 import MaterialTable from 'material-table';
-import Link from "@material-ui/core/Link";
 
 export default function UsuarioTable(props) {
 
     const colunas = [
+        { title: 'ID', field: 'idPerfil' },
         { title: 'Nome', field: 'nome' },
-        { title: 'Matrícula', field: 'matricula', type: 'numeric' },
-        { title: 'Ativo', field: 'ativo', type: "boolean" },
-        { title: 'Perfil', field: 'perfil', editable: null },
+        { title: 'Ativo', field: 'ativo', type: 'boolean'},
     ];
 
     const options = {
@@ -17,18 +15,19 @@ export default function UsuarioTable(props) {
 
     const actions = [{
         icon: "lock",
-        tooltip: "GERENCIAR PERFIL",
+        tooltip: "GERENCIAR PERMISSÕES",
         onClick: (event, rowData) => {
-            console.log("teste");
+            console.log("teste permissoes");
             console.log(rowData);
+            
         }
     }];
 
     return (
         <MaterialTable
-            title="Usuários"
+            title="Perfis"
             columns={colunas}
-            data={props.usuarios}
+            data={props.perfil}
             options={options}
             actions={actions}
             editable={{
@@ -36,7 +35,7 @@ export default function UsuarioTable(props) {
                     new Promise(resolve => {
                         setTimeout(() => {
                             resolve();
-                            const data = [...props.usuarios, newData];
+                            const data = [...props.perfil, newData];
                             props.inserirUsuario(data);
                         }, 600);
                     }),
@@ -44,7 +43,7 @@ export default function UsuarioTable(props) {
                     new Promise(resolve => {
                         setTimeout(() => {
                             resolve();
-                            const data = [...props.usuarios];
+                            const data = [...props.perfil];
                             data[data.indexOf(oldData)] = newData;
                             props.alterarUsuario(data);
                             console.log(data);
@@ -54,13 +53,12 @@ export default function UsuarioTable(props) {
                     new Promise(resolve => {
                         setTimeout(() => {
                             resolve();
-                            const data = [...props.usuarios];
+                            const data = [...props.perfil];
                             data.splice(data.indexOf(oldData), 1);
                             props.deletarUsuario(data);
                         }, 600);
                     }),
             }}
-            
         />
     );
 }
