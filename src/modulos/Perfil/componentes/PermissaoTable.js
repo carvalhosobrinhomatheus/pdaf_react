@@ -29,6 +29,7 @@ export default function PermissaoTable(props) {
     return (
         <div className={classes.root}>
             <Paper className={classes.paper}>
+                
                 <Table className={classes.table} size="small" aria-label="a dense table">
                     <TableHead>
                         <TableRow>
@@ -37,16 +38,16 @@ export default function PermissaoTable(props) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {props.entidade.permissao.map(permissao => (
+                        {props.permissoes.map(permissao => (
                             <TableRow key={permissao.idPermissao}>
                                 <TableCell component="th" scope="row">
                                     {permissao.nome}
                                 </TableCell>
                                 <TableCell align="center">
                                     <Checkbox
-                                        checked={permissao.temPermissao}
-                                        onChange={!permissao.temPermissao}
-                                        value="checkedB"
+                                        checked={permissao.ativo}
+                                        onChange={console.log()}
+                                        value="testee"
                                         color="primary"
                                     />
                                 </TableCell>

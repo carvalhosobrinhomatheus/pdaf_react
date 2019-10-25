@@ -47,56 +47,48 @@ export default function Dashboard() {
         "idPerfil": 0,
         "ativo": true,
         "nome": "ADMIN",
-        "entidade": [
+        "permissao": [
             {
-                "nome": "USUARIO",
-                "permissao": [
-                    {
-                        "idPermissao": 3,
-                        "temPermissao": true,
-                        "nome": "ALTERAR_USUARIO"
-                    },
-                    {
-                        "idPermissao": 2,
-                        "temPermissao": true,
-                        "nome": "INSERIR_USUARIO"
-                    },
-                    {
-                        "idPermissao": 4,
-                        "temPermissao": true,
-                        "nome": "DELETAR_USUARIO"
-                    },
-                    {
-                        "idPermissao": 0,
-                        "temPermissao": true,
-                        "nome": "VISUALIZAR_USUARIO"
-                    }
-                ]
+                "idPermissao": 6,
+                "ativo": true,
+                "nome": "INSERIR_PERFIL",
+                "entidadeSistema": "PERFIL"
             },
             {
-                "nome": "PERFIL",
-                "permissao": [
-                    {
-                        "idPermissao": 5,
-                        "temPermissao": true,
-                        "nome": "VISUALIZAR_PERFIL"
-                    },
-                    {
-                        "idPermissao": 6,
-                        "temPermissao": true,
-                        "nome": "INSERIR_PERFIL"
-                    },
-                    {
-                        "idPermissao": 7,
-                        "temPermissao": true,
-                        "nome": "ALTERAR_PERFIL"
-                    },
-                    {
-                        "idPermissao": 8,
-                        "temPermissao": true,
-                        "nome": "DELETAR_PERFIL"
-                    }
-                ]
+                "idPermissao": 7,
+                "ativo": true,
+                "nome": "ALTERAR_PERFIL",
+                "entidadeSistema": "PERFIL"
+            },
+            {
+                "idPermissao": 1,
+                "ativo": true,
+                "nome": "VISUALIZAR_USUARIO",
+                "entidadeSistema": "USUARIO"
+            },
+            {
+                "idPermissao": 5,
+                "ativo": true,
+                "nome": "VISUALIZAR_PERFIL",
+                "entidadeSistema": "PERFIL"
+            },
+            {
+                "idPermissao": 3,
+                "ativo": true,
+                "nome": "ALTERAR_USUARIO",
+                "entidadeSistema": "USUARIO"
+            },
+            {
+                "idPermissao": 8,
+                "ativo": true,
+                "nome": "DELETAR_PERFIL",
+                "entidadeSistema": "PERFIL"
+            },
+            {
+                "idPermissao": 4,
+                "ativo": true,
+                "nome": "DELETAR_USUARIO",
+                "entidadeSistema": "USUARIO"
             }
         ]
     },
@@ -104,16 +96,7 @@ export default function Dashboard() {
         "idPerfil": 1,
         "ativo": false,
         "nome": "GESTOR",
-        "entidade": [
-            {
-                "nome": "USUARIO",
-                "permissao": []
-            },
-            {
-                "nome": "PERFIL",
-                "permissao": []
-            }
-        ]
+        "permissao": []
     }
 ]);
 

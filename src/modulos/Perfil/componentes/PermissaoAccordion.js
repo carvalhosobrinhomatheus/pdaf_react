@@ -36,18 +36,19 @@ export default function PermissaoAccordion(props) {
 
     return (
         <div className={classes.root}>
-            {props.perfil.entidade.map(entidade => (
-                <ExpansionPanel expanded={expanded === 'panel'+entidade.nome} onChange={handleChange('panel'+entidade.nome)}>
+            {console.log(props)}
+            {props.perfil.permissao.map(permissao => (
+                <ExpansionPanel expanded={expanded === 'panel'+permissao.nome} onChange={handleChange('panel'+permissao.nome)}>
                     <ExpansionPanelSummary
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls="panelbh-content"
                         id="panelbh-header"
                     >
-                        <Typography className={classes.heading}>{entidade.nome}</Typography>
-                        <Typography className={classes.secondaryHeading}>Permissões de {entidade.nome}</Typography>
+                        <Typography className={classes.heading}>{permissao.nome}</Typography>
+                        <Typography className={classes.secondaryHeading}>Permissões de {permissao.nome}</Typography>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
-                        <PermissaoTable entidade={entidade}/>
+                        <PermissaoTable permissao={permissao}/>
                     </ExpansionPanelDetails>
                 </ExpansionPanel>
             ))

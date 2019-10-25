@@ -6,6 +6,7 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import PermissaoAccordion from "./PermissaoAccordion";
+import PermissaoTable from "./PermissaoTable";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -43,7 +44,7 @@ export default function PerfisAccordion(props) {
                         <Typography className={classes.secondaryHeading}>{(perfil.ativo ? 'Perfil Ativo': 'Perfil Inativo')}</Typography>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
-                        <PermissaoAccordion perfil={perfil}/>
+                        <PermissaoTable permissoes={perfil.permissao}/>
                     </ExpansionPanelDetails>
                 </ExpansionPanel>
             ))
