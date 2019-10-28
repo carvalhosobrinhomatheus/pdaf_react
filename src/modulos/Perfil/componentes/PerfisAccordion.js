@@ -27,13 +27,84 @@ export default function PerfisAccordion(props) {
     const classes = useStyles();
     const [expanded, setExpanded] = useState(false);
 
+    const [perfis, setPerfis] = useState([
+        {
+            "idPerfil": 0,
+            "ativo": true,
+            "nome": "ADMIN",
+            "permissao": [
+                {
+                    "idPermissao": 6,
+                    "ativo": true,
+                    "nome": "INSERIR_PERFIL",
+                    "entidadeSistema": "PERFIL",
+                    "temPermissao": false
+                },
+                {
+                    "idPermissao": 7,
+                    "ativo": true,
+                    "nome": "ALTERAR_PERFIL",
+                    "entidadeSistema": "PERFIL",
+                    "temPermissao": true
+                },
+                {
+                    "idPermissao": 1,
+                    "ativo": true,
+                    "nome": "VISUALIZAR_USUARIO",
+                    "entidadeSistema": "USUARIO",
+                    "temPermissao": false
+                },
+                {
+                    "idPermissao": 5,
+                    "ativo": true,
+                    "nome": "VISUALIZAR_PERFIL",
+                    "entidadeSistema": "PERFIL",
+                    "temPermissao": true
+                },
+                {
+                    "idPermissao": 3,
+                    "ativo": true,
+                    "nome": "ALTERAR_USUARIO",
+                    "entidadeSistema": "USUARIO",
+                    "temPermissao": true
+                },
+                {
+                    "idPermissao": 8,
+                    "ativo": true,
+                    "nome": "DELETAR_PERFIL",
+                    "entidadeSistema": "PERFIL",
+                    "temPermissao": true
+                },
+                {
+                    "idPermissao": 4,
+                    "ativo": true,
+                    "nome": "DELETAR_USUARIO",
+                    "entidadeSistema": "USUARIO",
+                    "temPermissao": true
+                }
+            ]
+        },
+        {
+            "idPerfil": 1,
+            "ativo": false,
+            "nome": "GESTOR",
+            "permissao": []
+        }
+    ]);
+
     const handleChange = panel => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
     };
 
+    const alterarTemPermissaoPerfil = (props) => {
+        const data = [...perfis];
+        data[data.indexOf(props.idPerfil)] = props;
+        setPerfis(data);
+    }
+
     return (
         <div className={classes.root}>
-            {props.perfis.map(perfil => (
+            {perfis.map(perfil => (
                 <ExpansionPanel expanded={expanded === 'panel'+perfil.idPerfil} onChange={handleChange('panel'+perfil.idPerfil)}>
                     <ExpansionPanelSummary
                         expandIcon={<ExpandMoreIcon />}
@@ -44,7 +115,7 @@ export default function PerfisAccordion(props) {
                         <Typography className={classes.secondaryHeading}>{(perfil.ativo ? 'Perfil Ativo': 'Perfil Inativo')}</Typography>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
-                        <PermissaoTable permissoes={perfil.permissao}/>
+                        <PermissaoTable perfil={perfil} alterarTemPermissaoPerfil={alterarTemPermissaoPerfil}/>
                     </ExpansionPanelDetails>
                 </ExpansionPanel>
             ))

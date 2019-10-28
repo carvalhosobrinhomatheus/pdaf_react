@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import Checkbox from '@material-ui/core/Checkbox';
+import MaterialTable from 'material-table';
+import { mergeClasses } from '@material-ui/styles';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -26,36 +21,38 @@ const useStyles = makeStyles(theme => ({
 export default function PermissaoTable(props) {
     const classes = useStyles();
 
+    const colunas = [
+        { title: 'Nome', field: 'nome', editable: null },
+        { title: 'Permissao', field: 'temPermissao', type: "boolean" },
+    ];
+
+    const options = {
+        actionsColumnIndex: -1,
+    };
+
     return (
         <div className={classes.root}>
-            <Paper className={classes.paper}>
-                
-                <Table className={classes.table} size="small" aria-label="a dense table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Permissão</TableCell>
-                            <TableCell align="center">Permissão</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {props.permissoes.map(permissao => (
-                            <TableRow key={permissao.idPermissao}>
-                                <TableCell component="th" scope="row">
-                                    {permissao.nome}
-                                </TableCell>
-                                <TableCell align="center">
-                                    <Checkbox
-                                        checked={permissao.ativo}
-                                        onChange={console.log()}
-                                        value="testee"
-                                        color="primary"
-                                    />
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </Paper>
+        <MaterialTable
+            title="Permissões"
+            columns={colunas}
+            data={props.perfil.permissao}
+            options={options}
+            editable={{
+                onRowUpdate: (newData, oldData) =>
+                    new Promise(resolve => {
+                        setTimeout(() => {
+                            resolve();
+                            const idPerfil = props.perfil;
+                            const data = [...props.perfil.permissao];
+                            data[data.indexOf(oldData)] = newData;
+                            props.perfil.permissao = data;
+                            console.log(props.perfil);
+                            props.alterarTemPermissaoPerfil(props.perfil);
+                        }, 600);
+                    }),
+            }}
+            
+        />
         </div>
     );
 }

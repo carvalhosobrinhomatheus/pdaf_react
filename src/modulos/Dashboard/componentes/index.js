@@ -52,43 +52,50 @@ export default function Dashboard() {
                 "idPermissao": 6,
                 "ativo": true,
                 "nome": "INSERIR_PERFIL",
-                "entidadeSistema": "PERFIL"
+                "entidadeSistema": "PERFIL",
+                "temPermissao": false
             },
             {
                 "idPermissao": 7,
                 "ativo": true,
                 "nome": "ALTERAR_PERFIL",
-                "entidadeSistema": "PERFIL"
+                "entidadeSistema": "PERFIL",
+                "temPermissao": true
             },
             {
                 "idPermissao": 1,
                 "ativo": true,
                 "nome": "VISUALIZAR_USUARIO",
-                "entidadeSistema": "USUARIO"
+                "entidadeSistema": "USUARIO",
+                "temPermissao": false
             },
             {
                 "idPermissao": 5,
                 "ativo": true,
                 "nome": "VISUALIZAR_PERFIL",
-                "entidadeSistema": "PERFIL"
+                "entidadeSistema": "PERFIL",
+                "temPermissao": true
             },
             {
                 "idPermissao": 3,
                 "ativo": true,
                 "nome": "ALTERAR_USUARIO",
-                "entidadeSistema": "USUARIO"
+                "entidadeSistema": "USUARIO",
+                "temPermissao": true
             },
             {
                 "idPermissao": 8,
                 "ativo": true,
                 "nome": "DELETAR_PERFIL",
-                "entidadeSistema": "PERFIL"
+                "entidadeSistema": "PERFIL",
+                "temPermissao": true
             },
             {
                 "idPermissao": 4,
                 "ativo": true,
                 "nome": "DELETAR_USUARIO",
-                "entidadeSistema": "USUARIO"
+                "entidadeSistema": "USUARIO",
+                "temPermissao": true
             }
         ]
     },
@@ -99,6 +106,11 @@ export default function Dashboard() {
         "permissao": []
     }
 ]);
+
+function alterarTemPermissaoPerfil(props){
+  console.log("entrei")
+  setPerfis(props);
+}
 
   useEffect(async () => {
     if (usuarios.length === 0 && !usuarioComponente) {
@@ -115,6 +127,7 @@ export default function Dashboard() {
   const inserirUsuario = (props) => {
     setUsuarios(props);
   }
+  
 
   const alterarUsuario = (props) => {
     setUsuarios(props);
@@ -229,7 +242,7 @@ export default function Dashboard() {
         </div>}
       {perfilComponente &&
         <div className={classes.rootPapper}>
-          <PerfisAccordion perfis={perfis}/>
+          <PerfisAccordion perfis={perfis} alterarTemPermissaoPerfil={() => alterarTemPermissaoPerfil()}/>
         </div>}
     </div>
   );
