@@ -1,7 +1,7 @@
 import React from 'react';
 import MaterialTable from 'material-table';
 
-export default function UsuarioTable(props) {
+export default function PerfilTable(props) {
 
     const colunas = [
         { title: 'ID', field: 'idPerfil' },

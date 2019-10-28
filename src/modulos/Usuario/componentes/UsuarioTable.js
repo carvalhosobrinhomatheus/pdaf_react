@@ -1,6 +1,5 @@
 import React from 'react';
 import MaterialTable from 'material-table';
-import Link from "@material-ui/core/Link";
 
 export default function UsuarioTable(props) {
 
@@ -8,13 +7,14 @@ export default function UsuarioTable(props) {
         { title: 'Nome', field: 'nome' },
         { title: 'Matrícula', field: 'matricula', type: 'numeric' },
         { title: 'Ativo', field: 'ativo', type: "boolean" },
-        { title: 'Perfil', field: 'perfil', editable: null },
+        { title: 'Perfil', field: 'perfil',
+            lookup: { 0: 'ADMIN', 1: 'GESTOR' },
+        },
     ];
 
     const options = {
         actionsColumnIndex: -1,
     };
-
     const actions = [{
         icon: "lock",
         tooltip: "GERENCIAR PERFIL",
