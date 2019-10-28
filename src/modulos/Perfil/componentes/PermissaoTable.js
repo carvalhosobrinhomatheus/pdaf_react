@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import MaterialTable from 'material-table';
-import { mergeClasses } from '@material-ui/styles';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -23,6 +22,7 @@ export default function PermissaoTable(props) {
 
     const colunas = [
         { title: 'Nome', field: 'nome', editable: null },
+        { title: 'Entidade do Sistema', field: 'entidadeSistema', editable: null},
         { title: 'Permissao', field: 'temPermissao', type: "boolean" },
     ];
 
@@ -42,11 +42,10 @@ export default function PermissaoTable(props) {
                     new Promise(resolve => {
                         setTimeout(() => {
                             resolve();
-                            const idPerfil = props.perfil;
                             const data = [...props.perfil.permissao];
                             data[data.indexOf(oldData)] = newData;
                             props.perfil.permissao = data;
-                            console.log(props.perfil);
+                            
                             props.alterarTemPermissaoPerfil(props.perfil);
                         }, 600);
                     }),
