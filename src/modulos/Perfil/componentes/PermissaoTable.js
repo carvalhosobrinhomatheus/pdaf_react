@@ -24,7 +24,7 @@ export default function PermissaoTable(props) {
     const colunas = [
         { title: 'Nome', field: 'nome', editable: null },
         { title: 'Entidade do Sistema', field: 'entidadeSistema', editable: null, defaultGroupOrder: true},
-        { title: 'Permissao', field: 'temPermissao', type: "boolean" },
+        { title: 'Permissão', field: 'temPermissao', type: "boolean" },
     ];
 
     const options = {
