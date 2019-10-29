@@ -1,5 +1,6 @@
 import React from 'react';
 import MaterialTable from 'material-table';
+import { LOCALIZATION } from '../../../utils/Constantes'; 
 
 export default function UsuarioTable(props) {
 
@@ -7,7 +8,8 @@ export default function UsuarioTable(props) {
         { title: 'Nome', field: 'nome' },
         { title: 'Matrícula', field: 'matricula', type: 'numeric' },
         { title: 'Ativo', field: 'ativo', type: "boolean" },
-        { title: 'Perfil', field: 'perfil',
+        {
+            title: 'Perfil', field: 'perfil',
             lookup: { 0: 'ADMIN', 1: 'GESTOR' },
         },
     ];
@@ -17,7 +19,7 @@ export default function UsuarioTable(props) {
     };
     const actions = [{
         icon: "lock",
-        tooltip: "GERENCIAR PERFIL",
+        tooltip: "Gerenciar Perfil",
         onClick: (event, rowData) => {
             console.log("teste");
             console.log(rowData);
@@ -27,6 +29,7 @@ export default function UsuarioTable(props) {
     return (
         <MaterialTable
             title="Usuários"
+            localization={LOCALIZATION}
             columns={colunas}
             data={props.usuarios}
             options={options}
@@ -60,7 +63,7 @@ export default function UsuarioTable(props) {
                         }, 600);
                     }),
             }}
-            
+
         />
     );
 }

@@ -18,13 +18,12 @@ import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
 import SettingsIcon from '@material-ui/icons/Settings';
 import clsx from 'clsx';
 import React, { useState, useEffect } from 'react';
-import { verificarPermissoesHelper } from "../../../utils/helpers";
-import { VIS_USUARIO, VIS_PERFIL } from "../../../utils/permissoes";
+import { verificarPermissoesHelper } from "../../../utils/Helpers";
+import { VIS_USUARIO, VIS_PERFIL } from "../../../utils/Permissoes";
 import Styles from '../styles';
 import Logout from './Sair';
 import UsuarioTable from '../../Usuario/componentes/UsuarioTable';
 import LockIcon from '@material-ui/icons/Lock';
-import { buscarTodos, teste } from '../../Usuario/service';
 import Axios from 'axios';
 import PerfisAccordion from "../../Perfil/componentes/PerfisAccordion";
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import MaterialTable from 'material-table';
-import Button from '@material-ui/core/Button';
+import { LOCALIZATION } from '../../../utils/Constantes'; 
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -20,7 +20,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function PermissaoTable(props) {
     const classes = useStyles();
-    const [grouping, setGrouping] = useState([{ columnName: 'entidadeSistema' }]);
 
     const colunas = [
         { title: 'Nome', field: 'nome', editable: null },
@@ -40,6 +39,7 @@ export default function PermissaoTable(props) {
         <MaterialTable
             title="Permissões"
             columns={colunas}
+            localization={LOCALIZATION}
             data={props.perfil.permissao}
             options={options}
             editable={{

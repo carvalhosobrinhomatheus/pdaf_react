@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import { logoutHelper } from '../../utils/helpers';
+import { logoutHelper } from '../../utils/Helpers';
 
 export function onSubmit(event) {
   event.preventDefault();
