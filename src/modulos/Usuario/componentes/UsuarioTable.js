@@ -10,6 +10,7 @@ export default function UsuarioTable(props) {
         { title: 'Ativo', field: 'ativo', type: "boolean" },
         {
             title: 'Perfil', field: 'perfil',
+            type: 'multiple',
             lookup: { 0: 'ADMIN', 1: 'GESTOR' },
         },
     ];
