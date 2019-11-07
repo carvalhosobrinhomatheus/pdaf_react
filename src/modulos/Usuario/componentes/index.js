@@ -1,41 +1,61 @@
-import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
+import React, { useState, useEffect } from 'react';
+import { useStateValue } from '../../../store/state';
+import UsuarioTable from './UsuarioTable';
+import service from '../service';
 
-const Styles = makeStyles(theme => ({
-    button: {
-        margin: theme.spacing(1),
-    },
-    input: {
-        display: 'none',
-    },
-    rootPapper: {
-        padding: theme.spacing(3, 3),
-        margin: theme.spacing(12, 4),
-        width: '100%',
-    },
-}));
 
-export default function Usuario(props) {
-    const classes = Styles();
+export default function Usuario() {
 
-    const usersData = props.usuarios;
-    
-    const [users, setUsers] = useState(usersData)
-    
-    const addUser = () =>{
-        const user = { id: 1, nome: 'Tania', matricula: 'floppydiskette' };
-        user.id = users.length + 1
-        setUsers([...users, user])
+    const [{ usuario }, dispatch] = useStateValue();
+
+    useEffect(() => {
+        const teste = service.buscarTodos;
+        if (!usuario.lista.length > 0) {
+            
+            console.log(teste);
+        }
+        console.log(usuario.lista);
+    }, [usuario.lista]);
+
+    const inserirUsuario = (props, newData) => {
+
+        //Chamada ao service para inserção em Backend
+        
+        dispatch({
+            type: 'inserirUsuario',
+            data: props,
+        })
+        console.log(newData);
+
     }
-    function handleChange(event) {
-        // Here, we invoke the callback with the new value
-        props.onChange(event.target.value);
-      }
+
+    const alterarUsuario = (props, newData) => {
+
+        //Chamada ao service para alteração em Backend
+
+        dispatch({
+            type: 'alterarUsuario',
+            data: props,
+        })
+        console.log(newData);
+    }
+
+    const deletarUsuario = (props, oldData) => {
+
+        //Chamada ao service para deleção em Backend
+        dispatch({
+            type: 'deletarUsuario',
+            data: props,
+        })
+        console.log(oldData);
+    }
 
     return (
-        <Paper className={classes.rootPapper}>
-            
-        </Paper>
+        <UsuarioTable
+            usuarios={usuario.lista}
+            inserirUsuario={inserirUsuario}
+            alterarUsuario={alterarUsuario}
+            deletarUsuario={deletarUsuario}
+        />
     );
 }

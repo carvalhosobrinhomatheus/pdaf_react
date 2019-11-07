@@ -22,119 +22,36 @@ import { verificarPermissoesHelper } from "../../../utils/Helpers";
 import { VIS_USUARIO, VIS_PERFIL } from "../../../utils/Permissoes";
 import Styles from '../styles';
 import Logout from './Sair';
-import UsuarioTable from '../../Usuario/componentes/UsuarioTable';
+import Usuario from '../../Usuario/componentes/index';
 import LockIcon from '@material-ui/icons/Lock';
 import Axios from 'axios';
-import PerfisAccordion from "../../Perfil/componentes/PerfisAccordion";
+import Perfil from "../../Perfil/componentes/index";
 
+import { useStateValue } from '../../../store/state';
 
 const permissaoVisualizarUsuarioComponente = verificarPermissoesHelper(VIS_USUARIO);
 const permissaoVisualizarPerfilComponente = verificarPermissoesHelper(VIS_PERFIL);
 
 export default function Dashboard() {
-
+  
   const classes = Styles();
   const theme = useTheme();
 
   const [open, setOpen] = useState(false);
   const [usuarioComponente, setUsuarioComponente] = useState(false);
   const [perfilComponente, setPerfilComponente] = useState(false);
-  const [usuarios, setUsuarios] = useState([]);
 
-  const [perfis, setPerfis] = useState([
-    {
-        "idPerfil": 0,
-        "ativo": true,
-        "nome": "ADMIN",
-        "permissao": [
-            {
-                "idPermissao": 6,
-                "ativo": true,
-                "nome": "INSERIR_PERFIL",
-                "entidadeSistema": "PERFIL",
-                "temPermissao": false
-            },
-            {
-                "idPermissao": 7,
-                "ativo": true,
-                "nome": "ALTERAR_PERFIL",
-                "entidadeSistema": "PERFIL",
-                "temPermissao": true
-            },
-            {
-                "idPermissao": 1,
-                "ativo": true,
-                "nome": "VISUALIZAR_USUARIO",
-                "entidadeSistema": "USUARIO",
-                "temPermissao": false
-            },
-            {
-                "idPermissao": 5,
-                "ativo": true,
-                "nome": "VISUALIZAR_PERFIL",
-                "entidadeSistema": "PERFIL",
-                "temPermissao": true
-            },
-            {
-                "idPermissao": 3,
-                "ativo": true,
-                "nome": "ALTERAR_USUARIO",
-                "entidadeSistema": "USUARIO",
-                "temPermissao": true
-            },
-            {
-                "idPermissao": 8,
-                "ativo": true,
-                "nome": "DELETAR_PERFIL",
-                "entidadeSistema": "PERFIL",
-                "temPermissao": true
-            },
-            {
-                "idPermissao": 4,
-                "ativo": true,
-                "nome": "DELETAR_USUARIO",
-                "entidadeSistema": "USUARIO",
-                "temPermissao": true
-            }
-        ]
-    },
-    {
-        "idPerfil": 1,
-        "ativo": false,
-        "nome": "GESTOR",
-        "permissao": []
-    }
-]);
+  // useEffect(async () => {
+  //   if (usuarios.length === 0 && !usuarioComponente) {
+  //     const result = await Axios.get("http://localhost:8080/usuario", {
+  //       headers: { 'Authorization': localStorage.getItem("Authorization") }
+  //     }).then(response => {
+  //       return response.data;
+  //     });
 
-function alterarTemPermissaoPerfil(props){
-  console.log("entrei")
-  setPerfis(props);
-}
-
-  useEffect(async () => {
-    if (usuarios.length === 0 && !usuarioComponente) {
-      const result = await Axios.get("http://localhost:8080/usuario", {
-        headers: { 'Authorization': localStorage.getItem("Authorization") }
-      }).then(response => {
-        return response.data;
-      });
-
-      setUsuarios(result)
-    }
-  }, []);
-
-  const inserirUsuario = (props) => {
-    setUsuarios(props);
-  }
-  
-
-  const alterarUsuario = (props) => {
-    setUsuarios(props);
-  }
-
-  const deletarUsuario = (props) => {
-    setUsuarios(props);
-  }
+  //     setUsuarios(result)
+  //   }
+  // }, []);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -154,7 +71,6 @@ function alterarTemPermissaoPerfil(props){
     setUsuarioComponente(false);
   }
 
-  // https://www.taniarascia.com/crud-app-in-react-with-hooks/
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -233,15 +149,11 @@ function alterarTemPermissaoPerfil(props){
       </Drawer>
       {usuarioComponente &&
         <div className={classes.rootPapper}>
-          <UsuarioTable
-            usuarios={usuarios}
-            inserirUsuario={inserirUsuario}
-            alterarUsuario={alterarUsuario}
-            deletarUsuario={deletarUsuario} />
+          <Usuario />
         </div>}
       {perfilComponente &&
         <div className={classes.rootPapper}>
-          <PerfisAccordion perfis={perfis} alterarTemPermissaoPerfil={() => alterarTemPermissaoPerfil()}/>
+          <Perfil />
         </div>}
     </div>
   );
