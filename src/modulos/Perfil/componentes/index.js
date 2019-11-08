@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import PerfisAccordion from './PerfisAccordion'; 
+import PerfisAccordion from './PerfilAccordion'; 
 import { makeStyles } from '@material-ui/core/styles';
 import { useStateValue } from '../../../store/state';
 

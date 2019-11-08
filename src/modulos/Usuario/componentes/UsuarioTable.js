@@ -1,17 +1,21 @@
 import React from 'react';
 import MaterialTable from 'material-table';
-import { LOCALIZATION } from '../../../utils/Constantes'; 
+import { LOCALIZATION } from '../../../utils/constantes';
 
 export default function UsuarioTable(props) {
 
+    const dinamicObject = { 0: "ADMIN", 1: "GESTOR", 3: "middle" };
+
+
     const colunas = [
-        { title: 'ID', field: 'idUsuario' },
+        { title: 'ID', field: 'idUsuario', readonly: true },
         { title: 'Nome', field: 'nome' },
         { title: 'Matrícula', field: 'matricula', type: 'numeric' },
         { title: 'Ativo', field: 'ativo', type: "boolean" },
         {
             title: 'Perfil', field: 'perfil',
-            lookup: { 0: 'ADMIN', 1: 'GESTOR' },
+            emptyValue: () => <div>PERFIL NÃO DEFINIDO</div>,
+            lookup: dinamicObject,
         },
     ];
 

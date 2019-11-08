@@ -1,26 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { useStateValue } from '../../../store/state';
 import UsuarioTable from './UsuarioTable';
-import service from '../service';
-
+import { buscarTodosUsuarios } from '../../../services/usuarioService';
 
 export default function Usuario() {
-
     const [{ usuario }, dispatch] = useStateValue();
 
+    const buscarUsuariosAPI = async () => {
+        const response = await buscarTodosUsuarios();
+        inserirUsuario(response.data);
+        console.log(response);
+    };
+
     useEffect(() => {
-        const teste = service.buscarTodos;
         if (!usuario.lista.length > 0) {
-            
-            console.log(teste);
+            buscarUsuariosAPI();
         }
-        console.log(usuario.lista);
     }, [usuario.lista]);
 
     const inserirUsuario = (props, newData) => {
 
         //Chamada ao service para inserção em Backend
-        
+
         dispatch({
             type: 'inserirUsuario',
             data: props,

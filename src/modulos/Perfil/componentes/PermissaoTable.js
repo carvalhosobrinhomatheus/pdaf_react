@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import MaterialTable from 'material-table';
-import { LOCALIZATION } from '../../../utils/Constantes'; 
+import { LOCALIZATION } from '../../../utils/constantes'; 
 
 const useStyles = makeStyles(theme => ({
     root: {

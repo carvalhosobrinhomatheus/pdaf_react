@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useState } from 'react';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -25,7 +24,7 @@ export default function PerfisAccordion(props) {
     return (
         <>
             {props.perfis.map(perfil => (
-                <ExpansionPanel expanded={expanded === 'panel'+perfil.idPerfil} onChange={handleChange('panel'+perfil.idPerfil)}>
+                <ExpansionPanel key={perfil.idPerfil} expanded={expanded === 'panel'+perfil.idPerfil} onChange={handleChange('panel'+perfil.idPerfil)}>
                     <ExpansionPanelSummary
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls="panelbh-content"

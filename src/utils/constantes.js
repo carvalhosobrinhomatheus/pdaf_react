@@ -3,6 +3,10 @@ export const ERR_CAMPO_OBG = "Por favor, preencha o campo";
 export const ERR_SENHA_DIFF = "As senhas estão diferentes"
 export const HELP_NO_PALAVRAS = "Máximo de Palavras: "
 
+
+/**
+ * Objeto responsável por traduzir as tabelas do sistema
+ */
 export const LOCALIZATION = {
     header:{
         actions: "Ações"

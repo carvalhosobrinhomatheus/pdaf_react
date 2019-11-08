@@ -18,16 +18,13 @@ import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
 import SettingsIcon from '@material-ui/icons/Settings';
 import clsx from 'clsx';
 import React, { useState, useEffect } from 'react';
-import { verificarPermissoesHelper } from "../../../utils/Helpers";
+import { verificarPermissoesHelper } from "../../../utils/helpers";
 import { VIS_USUARIO, VIS_PERFIL } from "../../../utils/Permissoes";
 import Styles from '../styles';
 import Logout from './Sair';
 import Usuario from '../../Usuario/componentes/index';
 import LockIcon from '@material-ui/icons/Lock';
-import Axios from 'axios';
 import Perfil from "../../Perfil/componentes/index";
-
-import { useStateValue } from '../../../store/state';
 
 const permissaoVisualizarUsuarioComponente = verificarPermissoesHelper(VIS_USUARIO);
 const permissaoVisualizarPerfilComponente = verificarPermissoesHelper(VIS_PERFIL);
@@ -40,18 +37,6 @@ export default function Dashboard() {
   const [open, setOpen] = useState(false);
   const [usuarioComponente, setUsuarioComponente] = useState(false);
   const [perfilComponente, setPerfilComponente] = useState(false);
-
-  // useEffect(async () => {
-  //   if (usuarios.length === 0 && !usuarioComponente) {
-  //     const result = await Axios.get("http://localhost:8080/usuario", {
-  //       headers: { 'Authorization': localStorage.getItem("Authorization") }
-  //     }).then(response => {
-  //       return response.data;
-  //     });
-
-  //     setUsuarios(result)
-  //   }
-  // }, []);
 
   const handleDrawerOpen = () => {
     setOpen(true);

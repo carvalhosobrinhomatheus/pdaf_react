@@ -1,4 +1,4 @@
-import { usuarioLogadoHelper, extrairAuthorizationHelper } from './utils/Helpers';
+import { usuarioLogadoHelper, extrairAuthorizationHelper } from './utils/helpers';
 
 
 export const autenticado = () => {

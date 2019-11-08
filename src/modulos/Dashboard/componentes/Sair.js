@@ -4,7 +4,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import Styles from '../styles';
-import { onClickLogout } from '../service';
+import { onClickLogout } from '../../../services/loginService';
 
 export default function SimpleMenu() {
   const classes = Styles();

@@ -1,4 +1,5 @@
 import Axios from 'axios';
+import { logoutHelper } from '../utils/helpers';
 
 const useLogin = () => {
   const onSubmit = (event) => {
@@ -23,6 +24,11 @@ const useLogin = () => {
   }
 
   return onSubmit;
+}
+
+export function onClickLogout(){
+  logoutHelper();
+  window.location.href="/";
 }
 
 export default useLogin;
