@@ -3,7 +3,12 @@ export const reducerUsuario = (state, action) => {
   switch (action.type) {
     case 'listarUsuarios':
       return {
-        ...state.usuario
+        ...state
+      };
+    case 'popularListaUsuario':
+      return {
+        ...state,
+        lista: action.data,
       };
     case 'inserirUsuario':
       return {

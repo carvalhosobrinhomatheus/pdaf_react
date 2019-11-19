@@ -1,14 +1,36 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import MaterialTable from 'material-table';
 import { LOCALIZATION } from '../../../utils/constantes';
+import { buscarTodosPerfis } from '../../../services/perfilService';
+import { useStateValue } from '../../../store/state';
+import { simplificarListaPerfil } from '../../../utils/helpers';
 
 export default function UsuarioTable(props) {
+    const [{ perfil }, dispatch] = useStateValue();
 
-    const dinamicObject = { 0: "ADMIN", 1: "GESTOR", 3: "middle" };
+    var dinamicObject = (perfil.listaSimples.length > 0) ? perfil.listaSimples : [];
 
+    const buscarPerfisSimples = async () => {
+        const perfis = await buscarTodosPerfis();
+        const listaPerfisSimplificada = simplificarListaPerfil(perfis.data)
+        inserirListaSimples(listaPerfisSimplificada);
+    };
 
+    const inserirListaSimples = (props) => {
+        dispatch({
+            type: 'inserirListaSimples',
+            data: props,
+        });
+    }
+
+    useEffect(() => {
+        if (perfil.listaSimples.length == 0) {
+            buscarPerfisSimples();
+        }
+    }, [perfil.listaSimples]);
+    
     const colunas = [
-        { title: 'ID', field: 'idUsuario', readonly: true },
+        { title: 'ID', field: 'idUsuario', editable: null },
         { title: 'Nome', field: 'nome' },
         { title: 'Matrícula', field: 'matricula', type: 'numeric' },
         { title: 'Ativo', field: 'ativo', type: "boolean" },
@@ -31,30 +53,25 @@ export default function UsuarioTable(props) {
             data={props.usuarios}
             options={options}
             editable={{
-                onRowAdd: newData =>
+                onRowAdd: (newData) =>
                     new Promise(resolve => {
-                        setTimeout(() => {
+                        setTimeout(async () => {
                             resolve();
-                            const data = [...props.usuarios, newData];
-                            props.inserirUsuario(data, newData);
+                            props.inserirUsuario(newData);
                         }, 600);
                     }),
                 onRowUpdate: (newData, oldData) =>
                     new Promise(resolve => {
                         setTimeout(() => {
                             resolve();
-                            const data = [...props.usuarios];
-                            data[data.indexOf(oldData)] = newData;
-                            props.alterarUsuario(data, newData);
+                            props.alterarUsuario(newData, oldData);
                         }, 600);
                     }),
-                onRowDelete: oldData =>
+                onRowDelete: (oldData) =>
                     new Promise(resolve => {
                         setTimeout(() => {
                             resolve();
-                            const data = [...props.usuarios];
-                            data.splice(data.indexOf(oldData), 1);
-                            props.deletarUsuario(data, oldData);
+                            props.deletarUsuario(oldData);
                         }, 600);
                     }),
             }}

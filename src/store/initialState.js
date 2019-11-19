@@ -75,6 +75,7 @@ export const InitialState = {
                 "nome": "GESTOR",
                 "permissao": []
             }
-        ]
+        ],
+        listaSimples: []
     }
 }

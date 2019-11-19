@@ -1,4 +1,3 @@
-
 export function payloadHelper() {
     let jwtDecode = require('jwt-decode')
     let token = localStorage.getItem("Authorization");
@@ -73,4 +72,12 @@ export function verificarPermissoesHelper(permissao) {
         return true;
     } 
     return false;
+}
+
+export function simplificarListaPerfil(perfis) {
+    const perfisSimplificados = [{}];
+    perfis.forEach(perfil => {
+        perfisSimplificados[perfil['idPerfil']] = perfil.nome;
+    });
+    return perfisSimplificados;
 }
