@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import MaterialTable from 'material-table';
 import { LOCALIZATION } from '../../../utils/constantes';
-import { buscarTodosPerfis } from '../../../services/perfilService';
+import { buscarTodosPerfisSimplesService } from '../../../services/perfilService';
 import { useStateValue } from '../../../store/state';
 import { simplificarListaPerfil } from '../../../utils/helpers';
 
@@ -11,7 +11,7 @@ export default function UsuarioTable(props) {
     var dinamicObject = (perfil.listaSimples.length > 0) ? perfil.listaSimples : [];
 
     const buscarPerfisSimples = async () => {
-        const perfis = await buscarTodosPerfis();
+        const perfis = await buscarTodosPerfisSimplesService();
         const listaPerfisSimplificada = simplificarListaPerfil(perfis.data)
         inserirListaSimples(listaPerfisSimplificada);
     };
@@ -64,7 +64,13 @@ export default function UsuarioTable(props) {
                     new Promise(resolve => {
                         setTimeout(() => {
                             resolve();
-                            props.alterarUsuario(newData, oldData);
+                            if(newData.ativo !== oldData.ativo 
+                                && newData.matricula !== oldData.matricula
+                                && newData.nome !== oldData.nome
+                                && newData.ativo !== oldData.ativo
+                                && newData.perfil !== oldData.perfil){
+                                props.alterarUsuario(newData, oldData);
+                            }
                         }, 600);
                     }),
                 onRowDelete: (oldData) =>

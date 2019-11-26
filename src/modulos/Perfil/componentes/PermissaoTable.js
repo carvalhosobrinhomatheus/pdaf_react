@@ -22,8 +22,9 @@ export default function PermissaoTable(props) {
     const classes = useStyles();
 
     const colunas = [
-        { title: 'Nome', field: 'nome', editable: null },
-        { title: 'Entidade do Sistema', field: 'entidadeSistema', editable: null, defaultGroupOrder: true},
+        { title: 'ID', field: 'permissao.idPermissao', editable: null },
+        { title: 'Nome', field: 'permissao.nome', editable: null },
+        { title: 'Entidade do Sistema', field: 'permissao.entidadeSistema', editable: null, defaultGroupOrder: true},
         { title: 'Permissão', field: 'temPermissao', type: "boolean" },
     ];
 
@@ -40,22 +41,19 @@ export default function PermissaoTable(props) {
             title="Permissões"
             columns={colunas}
             localization={LOCALIZATION}
-            data={props.perfil.permissao}
+            data={props.perfil.perfilPermissao}
             options={options}
             editable={{
                 onRowUpdate: (newData, oldData) =>
                     new Promise(resolve => {
                         setTimeout(() => {
                             resolve();
-                            const data = [...props.perfil.permissao];
-                            data[data.indexOf(oldData)] = newData;
-                            props.perfil.permissao = data;
-                            
-                            props.alterarTemPermissaoPerfil(props.perfil);
+                            if(newData.temPermissao !== oldData.temPermissao){
+                                props.alterarTemPermissaoPerfil(newData, oldData, props.idPerfil);
+                            }
                         }, 600);
                     }),
             }}
-            
         />
         </div>
     );
