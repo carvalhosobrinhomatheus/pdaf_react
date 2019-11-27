@@ -8,7 +8,7 @@ import { simplificarListaPerfil } from '../../../utils/helpers';
 export default function UsuarioTable(props) {
     const [{ perfil }, dispatch] = useStateValue();
 
-    var dinamicObject = (perfil.listaSimples.length > 0) ? perfil.listaSimples : [];
+    var dinamicObject = (perfil.listaSimples.length > 0) ? perfil.listaSimples : {};
 
     const buscarPerfisSimples = async () => {
         const perfis = await buscarTodosPerfisSimplesService();

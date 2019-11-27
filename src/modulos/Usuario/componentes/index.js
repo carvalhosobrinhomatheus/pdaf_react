@@ -19,14 +19,18 @@ export default function Usuario() {
 
     const buscarUsuariosAPI = async () => {
         const response = await buscarTodosUsuariosService();
-        dispatchUsuario({
-            type: 'popularListaUsuario',
-            data: response.data,
-        });
+
+        if(response.status === 200){
+            dispatchUsuario({
+                type: 'popularListaUsuario',
+                data: response.data,
+            });
+        }else{
+            alert("Erro ao tentar listar usuários!");
+        }
     };
 
     const inserirUsuario = async (newData) => {
-        try {
             const retornoRequest = await inserirUsuarioService(newData);
             if (retornoRequest.status === 201) {
                 newData = { ...newData, idUsuario: retornoRequest.headers['id'] }
@@ -36,10 +40,9 @@ export default function Usuario() {
                     type: 'inserirUsuario',
                     data: dados,
                 })
+            }else{
+                alert("Ocorreu um erro ao inserir usuário!");
             }
-        } catch (error) {
-            alert("Ocorreu um erro ao inserir usuário!");
-        }
     }
 
     const alterarUsuario = async (newData, oldData) => {
@@ -51,6 +54,8 @@ export default function Usuario() {
                 type: 'alterarUsuario',
                 data: dados,
             })
+        }else{
+            alert("Ocorreu um erro ao alterar usuário!");
         }
     }
 

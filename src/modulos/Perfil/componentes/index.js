@@ -4,6 +4,7 @@ import { useStateValue } from '../../../store/state';
 import { Button, Grid, ButtonGroup, Box, FormControl, InputLabel, Input, FormHelperText} from '@material-ui/core';
 import { buscarTodosPerfisService } from '../../../services/perfilService';
 import PerfilAccordion from './PerfilAccordion';
+import PerfilPaper from './PerfilPaper';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -23,6 +24,11 @@ const useStyles = makeStyles(theme => ({
 export default function Perfil() {
   const classes = useStyles();
   const [{ perfil }, dispatchPerfil] = useStateValue();
+  const [paperInserir, setPaperInserir] = useState(false);
+
+  const handleClick = () => {
+    setPaperInserir(!paperInserir);
+  };
 
   useEffect(() => {
     if (perfil.lista.length == 0) {
@@ -33,21 +39,15 @@ export default function Perfil() {
   const buscarPerfisAPI = async () => {
     const response = await buscarTodosPerfisService();
     dispatchPerfil({
-      type: 'inserirLista',
+      type: 'inserirPerfil',
       data: response.data,
     });
   };
 
   return (
     <div className={classes.root}>
-      <Box display="flex" justifyContent="flex-end" m={1} p={1}>
-        <Button>Novo</Button>
-      </Box>
-      <FormControl>
-        <InputLabel htmlFor="my-input">Email address</InputLabel>
-        <Input id="my-input" aria-describedby="my-helper-text" />
-        <FormHelperText id="my-helper-text">We'll never share your email.</FormHelperText>
-      </FormControl>
+      <Button onClick={handleClick}>Novo</Button>
+      {paperInserir && <PerfilPaper />}
       <PerfilAccordion classes={classes} />
     </div>
   );

@@ -6,7 +6,7 @@ export const reducerPerfil = (state, action) => {
         ...state
 
       };
-    case 'inserirLista':
+    case 'inserirPerfil':
       return {
         ...state,
         lista: action.data,
