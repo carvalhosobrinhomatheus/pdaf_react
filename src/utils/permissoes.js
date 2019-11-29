@@ -9,3 +9,9 @@ export const VIS_PERFIL = "VISUALIZAR_PERFIL";
 export const ALT_PERFIL = "ALTERAR_PERFIL";
 export const DEL_PERFIL = "DELETAR_PERFIL";
 export const INS_PERFIL = "INSERIR_PERFIL";
+
+/* Permissões de Entidade Unidade Executora*/
+export const VIS_UNI_EXE = "VISUALIZAR_UNIDADE_EXECUTORA";
+export const ALT_UNI_EXE = "ALTERAR_UNIDADE_EXECUTORA";
+export const DEL_UNI_EXE = "DELETAR_UNIDADE_EXECUTORA";
+export const INS_UNI_EXE = "INSERIR_UNIDADE_EXECUTORA";

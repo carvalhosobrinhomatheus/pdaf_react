@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FormControl, InputLabel, Input, FormHelperText, Checkbox, Button } from '@material-ui/core';
-import { inserirPerfisService, buscarPerfilPorIdService } from "../../../services/perfilService";
-import { useStateValue } from '../../../store/state';
+import { inserirPerfisService, buscarPerfilPorIdService } from "../../services/perfilService";
+import { useStateValue } from '../../store/state';
 
 export default function PerfilForm() {
     const [{ perfil }, dispatchPerfil] = useStateValue();

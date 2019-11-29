@@ -1,28 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { useStateValue } from '../../../store/state';
+import { useStateValue } from '../../store/state';
 import { Button, Grid, ButtonGroup, Box, FormControl, InputLabel, Input, FormHelperText} from '@material-ui/core';
-import { buscarTodosPerfisService } from '../../../services/perfilService';
+import { buscarTodosPerfisService } from '../../services/perfilService';
 import PerfilAccordion from './PerfilAccordion';
 import PerfilPaper from './PerfilPaper';
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    width: '100%',
-  },
-  heading: {
-    fontSize: theme.typography.pxToRem(15),
-    flexBasis: '33.33%',
-    flexShrink: 0,
-  },
-  secondaryHeading: {
-    fontSize: theme.typography.pxToRem(15),
-    color: theme.palette.text.secondary,
-  },
-}));
+import Styles from '../../styles/perfilStyles';
 
 export default function Perfil() {
-  const classes = useStyles();
+
+  const classes = Styles();
+
   const [{ perfil }, dispatchPerfil] = useStateValue();
   const [paperInserir, setPaperInserir] = useState(false);
 

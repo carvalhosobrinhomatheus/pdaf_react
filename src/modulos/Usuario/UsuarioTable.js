@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import MaterialTable from 'material-table';
-import { LOCALIZATION } from '../../../utils/constantes';
-import { buscarTodosPerfisSimplesService } from '../../../services/perfilService';
-import { useStateValue } from '../../../store/state';
-import { simplificarListaPerfil } from '../../../utils/helpers';
+import { LOCALIZATION } from '../../utils/constantes';
+import { buscarTodosPerfisSimplesService } from '../../services/perfilService';
+import { useStateValue } from '../../store/state';
+import { simplificarListaPerfil } from '../../utils/helpers';
 
 export default function UsuarioTable(props) {
     const [{ perfil }, dispatch] = useStateValue();

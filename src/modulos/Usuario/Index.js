@@ -1,14 +1,16 @@
 import React, { useEffect } from 'react';
-import { useStateValue } from '../../../store/state';
+import { useStateValue } from '../../store/state';
 import UsuarioTable from './UsuarioTable';
 import {
     buscarTodosUsuariosService,
     inserirUsuarioService,
     deletarUsuarioService,
     alterarUsuarioService
-} from '../../../services/usuarioService';
+} from '../../services/usuarioService';
+import Styles from './usuarioStyles';
 
 export default function Usuario() {
+    const classes = Styles();
     const [{ usuario }, dispatchUsuario] = useStateValue();
 
     useEffect(() => {
@@ -78,11 +80,13 @@ export default function Usuario() {
     }
 
     return (
-        <UsuarioTable
-            usuarios={usuario.lista}
-            inserirUsuario={inserirUsuario}
-            alterarUsuario={alterarUsuario}
-            deletarUsuario={deletarUsuario}
-        />
+        <div className={classes.root}>
+            <UsuarioTable
+                usuarios={usuario.lista}
+                inserirUsuario={inserirUsuario}
+                alterarUsuario={alterarUsuario}
+                deletarUsuario={deletarUsuario}
+            />
+        </div>
     );
 }

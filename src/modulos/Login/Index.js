@@ -8,12 +8,12 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import useLogin from '../../../services/loginService';
+import useLogin from '../../services/loginService';
 
-import Styles from '../styles';
+import Styles from '../../styles/loginStyles';
 
 const useStyles = Styles();
-
+ 
 export default function Login() {
   const onSubmit  = useLogin();
   const classes = useStyles();

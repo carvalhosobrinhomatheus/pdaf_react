@@ -1,29 +1,10 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import MaterialTable from 'material-table';
-import { LOCALIZATION } from '../../../utils/constantes';
-import CheckBoxIcon from '@material-ui/icons/CheckBox';
-import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
-import { useStateValue } from '../../../store/state';
-import { ativarDesativarPerfilService } from "../../../services/perfilService";
-
-const useStyles = makeStyles(theme => ({
-    root: {
-        width: '100%',
-    },
-    paper: {
-        marginTop: theme.spacing(3),
-        width: '100%',
-        overflowX: 'auto',
-        marginBottom: theme.spacing(2),
-    },
-    table: {
-        minWidth: 650,
-    },
-}));
+import { LOCALIZATION } from '../../utils/constantes';
+import Styles from '../../styles/perfilStyles';
 
 export default function PermissaoTable(props) {
-    const classes = useStyles();
+    const classes = Styles();
 
     const colunas = [
         { title: 'ID', field: 'permissao.idPermissao', editable: null },

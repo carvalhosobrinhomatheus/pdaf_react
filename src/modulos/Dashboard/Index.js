@@ -15,28 +15,32 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import HelpIcon from '@material-ui/icons/Help';
 import MenuIcon from '@material-ui/icons/Menu';
 import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
+import HomeWorkIcon from '@material-ui/icons/HomeWork';
 import SettingsIcon from '@material-ui/icons/Settings';
 import clsx from 'clsx';
 import React, { useState, useEffect } from 'react';
-import { verificarPermissoesHelper } from "../../../utils/helpers";
-import { VIS_USUARIO, VIS_PERFIL } from "../../../utils/Permissoes";
-import Styles from '../styles';
+import { verificarPermissoesHelper } from "../../utils/helpers";
+import { VIS_USUARIO, VIS_PERFIL, VIS_UNIDADE_EXECUTORA } from "../../utils/permissoes";
+import Styles from '../../styles/dashboardStyles';
 import Logout from './Sair';
-import Usuario from '../../Usuario/componentes/index';
+import Usuario from '../Usuario/Index';
 import LockIcon from '@material-ui/icons/Lock';
-import Perfil from "../../Perfil/componentes/index";
+import Perfil from "../Perfil/Index";
+import UnidadeExecutora from "../UnidadeExecutora/Index";
 
 const permissaoVisualizarUsuarioComponente = verificarPermissoesHelper(VIS_USUARIO);
 const permissaoVisualizarPerfilComponente = verificarPermissoesHelper(VIS_PERFIL);
+const permissaoVisualizarUnidadeExecutoraComponente = verificarPermissoesHelper(VIS_PERFIL); //Alterar
 
 export default function Dashboard() {
-  
+
   const classes = Styles();
   const theme = useTheme();
 
   const [open, setOpen] = useState(false);
   const [usuarioComponente, setUsuarioComponente] = useState(false);
   const [perfilComponente, setPerfilComponente] = useState(false);
+  const [unidadeExecutoraComponente, setUnidadeExecutoraComponente] = useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -48,11 +52,19 @@ export default function Dashboard() {
 
   const usuarioComponenteShow = () => {
     setUsuarioComponente(!usuarioComponente);
+    setUnidadeExecutoraComponente(false);
     setPerfilComponente(false);
   }
 
   const perfilComponenteShow = () => {
     setPerfilComponente(!perfilComponente);
+    setUnidadeExecutoraComponente(false);
+    setUsuarioComponente(false);
+  }
+
+  const unidadeExecitoraComponenteShow = () => {
+    setUnidadeExecutoraComponente(!unidadeExecutoraComponente);
+    setPerfilComponente(false);
     setUsuarioComponente(false);
   }
 
@@ -118,6 +130,13 @@ export default function Dashboard() {
               <ListItemText primary="Perfis" />
             </ListItem>
           </List>}
+        {permissaoVisualizarUnidadeExecutoraComponente &&
+          <List>
+            <ListItem button key="unidadeExecutora" onClick={unidadeExecitoraComponenteShow}>
+              <ListItemIcon><HomeWorkIcon /></ListItemIcon>
+              <ListItemText primary="Unidade Executora" />
+            </ListItem>
+          </List>}
         <Divider />
         <List>
           <ListItem button key="configuracoes">
@@ -139,6 +158,10 @@ export default function Dashboard() {
       {perfilComponente &&
         <div className={classes.rootPapper}>
           <Perfil />
+        </div>}
+        {unidadeExecutoraComponente &&
+        <div className={classes.rootPapper}>
+          <UnidadeExecutora/>
         </div>}
     </div>
   );

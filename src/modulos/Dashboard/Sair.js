@@ -3,8 +3,8 @@ import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import Styles from '../styles';
-import { onClickLogout } from '../../../services/loginService';
+import Styles from '../../styles/dashboardStyles';
+import { onClickLogout } from '../../services/loginService';
 
 export default function SimpleMenu() {
   const classes = Styles();

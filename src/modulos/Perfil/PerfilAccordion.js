@@ -1,16 +1,10 @@
 import React, { useState } from 'react';
 import { ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, Typography, Switch } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-
-
 import PermissaoTable from "./PermissaoTable";
-import { useStateValue } from '../../../store/state';
-import { alterarPerfilPermissaoService } from "../../../services/permissaoService";
-import { ativarDesativarPerfilService } from "../../../services/perfilService";
-import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
+import { useStateValue } from '../../store/state';
+import { alterarPerfilPermissaoService } from "../../services/permissaoService";
+import { ativarDesativarPerfilService } from "../../services/perfilService";
 
 export default function PerfisAccordion(props) {
     const [expanded, setExpanded] = useState(false);
